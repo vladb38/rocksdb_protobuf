@@ -139,12 +139,12 @@ The merge operator constructor is aware of the type of the object to
 be merged. It will fetch the Protobuf descriptor of the object and the
 descriptors of all the dependency files and pass them down to the
 protobuf merge function. The function starts looking at the field
-extensions when procesing objects after merge and, in this case, drops
+extensions when processing objects after merge and, in this case, drops
 the oldest entries in order to keep the number of entries under the
 cap. The code remains the same, all that differs is the protobuf
 object definition.
 
-Runnin the two snippets, we see that for both fields the cap of 2 is
+Running the two snippets, we see that for both fields the cap of 2 is
 in place. The merged object will be:
 ```
 subtype11 {
