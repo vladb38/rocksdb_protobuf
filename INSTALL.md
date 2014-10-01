@@ -23,13 +23,12 @@ ln -s <your RocksDB source folder> .
 Install RocksdDB and RocksDB_Protobuf dependencies:
 
 * **Ubuntu 14.04**
-  * Install dependencies
 ```
 sudo apt-get install libprotobuf-dev libsnappy-dev zlib1g-dev libbz2-dev libgflags-dev
 ```
-   *You might need to upgrade gcc to get C++ 11 support!
+   You might need to upgrade gcc to get C++ 11 support!
 
-3. Make the library and test it
+## Compile
 
 * This will create the library:
 ```
