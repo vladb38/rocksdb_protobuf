@@ -7,8 +7,8 @@ developed at Google.
 
 RocksDB offers the possibility of doing appends to existing key values
 efficiently through the use of a merge operator. A merge operator is a
-user-provided callback that knows how the merge the old value ("the
-message") and the new value ("the delta") in order into a single value
+user-provided callback that knows how to merge the old value ("the
+message") and the new value ("the delta") into a single value
 ("the merged value").
 
 Protobuf has its own built-in merge operation for combining two values
