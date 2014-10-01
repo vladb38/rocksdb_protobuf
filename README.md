@@ -149,9 +149,9 @@ Running the two snippets, we see that for both fields the cap of 2 is
 in place. The merged object will be:
 ```
 subtype11 {
-  text112: "b"
-    text112: "c"
-    }
-    text12: "b"
-    text12: "c"
+text112: "b"
+text112: "c"
+}
+text12: "b"
+text12: "c"
 ```
