@@ -38,30 +38,30 @@ following C++ code snippet does just this:
 
 
 ```C++
-    /* Create protobuf messages */
-  Type1 message;
-  Type1 delta;
-  Type1 merged;
+/* Create protobuf messages */
+Type1 message;
+Type1 delta;
+Type1 merged;
 
-  message.add_text12("a");
-  message.add_text12("b");
-  message.mutable_subtype11()->add_text112("a");
-  message.mutable_subtype11()->add_text112("b");
-  delta.add_text12("c");
-  delta.mutable_subtype11()->add_text112("c");
+message.add_text12("a");
+message.add_text12("b");
+message.mutable_subtype11()->add_text112("a");
+message.mutable_subtype11()->add_text112("b");
+delta.add_text12("c");
+delta.mutable_subtype11()->add_text112("c");
 
-  /* Open a database and merge two messages */
-  DB* db;
-  Options options;
-  options.merge_operator = get_operator<Type1>();
-  Status s = DB::Open(options, kDBPath, &db);
+/* Open a database and merge two messages */
+DB* db;
+Options options;
+options.merge_operator = get_operator<Type1>();
+Status s = DB::Open(options, kDBPath, &db);
 
-  db->Put(WriteOptions(), "key", message.SerializeAsString());
-  db->Merge(WriteOptions(), "key", delta.SerializeAsString());
-  std::string value;
-  s = db->Get(ReadOptions(), "key", &value);
-  merged.ParseFromString(value);
-  std::cout << merged.DebugString() << std::endl;
+db->Put(WriteOptions(), "key", message.SerializeAsString());
+db->Merge(WriteOptions(), "key", delta.SerializeAsString());
+std::string value;
+s = db->Get(ReadOptions(), "key", &value);
+merged.ParseFromString(value);
+std::cout << merged.DebugString() << std::endl;
 ```
 ([from test_database.cc] (src/test/cpp/test_database.cc))
 
@@ -81,36 +81,36 @@ text12: "c"
 You might prefer Java, in which case your code should look like:
 
 ```Java
-	Type1.Subtype11 message_submessage = Type1.Subtype11.newBuilder()
-			.addText112("a")
-			.addText112("b")
-			.build();
-	Type1.Subtype11 delta_submessage = Type1.Subtype11.newBuilder()
-			  .addText112("c")
-			  .build();
-    Type1 message = Type1.newBuilder()
-			.addText12("a")
-			.addText12("b")
-			.setSubtype11(message_submessage)
-			.build();
-	Type1 delta = Type1.newBuilder()
-			.addText12("c")
-			.setSubtype11(delta_submessage)
-			.build();
+Type1.Subtype11 message_submessage = Type1.Subtype11.newBuilder()
+		.addText112("a")
+		.addText112("b")
+		.build();
+Type1.Subtype11 delta_submessage = Type1.Subtype11.newBuilder()
+		.addText112("c")
+		.build();
+Type1 message = Type1.newBuilder()
+		.addText12("a")
+		.addText12("b")
+		.setSubtype11(message_submessage)
+		.build();
+Type1 delta = Type1.newBuilder()
+		.addText12("c")
+		.setSubtype11(delta_submessage)
+		.build();
 
-    Options opt = new Options();
-    ProtobufMergeOperator protobufMergeOperator = new ProtobufMergeOperator(Type1.class);
-    opt.setMergeOperator(protobufMergeOperator);
+Options opt = new Options();
+ProtobufMergeOperator protobufMergeOperator = new ProtobufMergeOperator(Type1.class);
+opt.setMergeOperator(protobufMergeOperator);
 
-    RocksDB db = RocksDB.open(opt, db_path_string);
+RocksDB db = RocksDB.open(opt, db_path_string);
 
-    db.put("key".getBytes(), message.toByteArray());
-    db.merge("key".getBytes(), delta.toByteArray());
+db.put("key".getBytes(), message.toByteArray());
+db.merge("key".getBytes(), delta.toByteArray());
 
-    byte[] value = db.get("key".getBytes());
+byte[] value = db.get("key".getBytes());
 
-	Type1 new_message = Type1.parseFrom(new String(value);
-	System.out.println(new_message.toString());
+Type1 new_message = Type1.parseFrom(new String(value);
+System.out.println(new_message.toString());
 ```
 ([from RocksDBProtobufTest.java] (src/test/java/org/rocksdbprotobuf/RocksDBProtobufTest.java))
 
