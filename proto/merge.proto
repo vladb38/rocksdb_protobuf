@@ -1,0 +1,27 @@
+// Merge extensions definitions. Here we define
+// the different ways in which fields can be merged
+// and the parameters that mange each merge type.
+// MERGE_LIST: simple merge, do not trim after merging
+// MERGE_CAPPED_LIST: merge then trim the oldes elementes
+//                    in order to keep the list size unde
+//                    the cap size
+// @author vbalan
+
+import "google/protobuf/descriptor.proto";
+
+option java_package = "org.rocksdbprotobuf.proto";
+
+// package rocksdb;
+
+message MergeMessage {
+  enum MergeType {
+    MERGE_LIST = 0;
+    MERGE_CAPPED_LIST = 1;
+  }
+}
+
+extend google.protobuf.FieldOptions {
+  optional MergeMessage.MergeType merge_type = 50001;
+  optional uint32 merge_cap = 50002;
+}
+

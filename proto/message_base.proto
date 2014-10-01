@@ -1,0 +1,8 @@
+// A simple protobuf message instantiation that
+// realizes google::protobuf::Message
+// @author vbalan
+
+option optimize_for = SPEED;
+
+message MessageBase {
+}

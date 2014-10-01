@@ -1,0 +1,24 @@
+// A test message type that uses the merge extensions
+// @author vbalan
+
+import "merge.proto";
+import "google/protobuf/descriptor.proto";
+
+option java_package = "org.rocksdbprotobuf.proto";
+
+message Type1 {
+  message Subtype11 {
+    // This field has merge type 1
+    optional string text111 = 1;
+    repeated string text112 = 2 [(merge_type) = MERGE_CAPPED_LIST, (merge_cap) = 2];
+  }
+
+  optional Subtype11 subtype11 = 1;
+  repeated string text12 = 2 [(merge_type) = MERGE_CAPPED_LIST, (merge_cap) = 2];
+  optional string text13 = 3;
+}
+
+// This message will be ignored
+message Type2 {
+  repeated string text21 = 1; 
+}
