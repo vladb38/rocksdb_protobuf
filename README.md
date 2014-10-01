@@ -34,8 +34,7 @@ message Type1 {
 You should be able to create a new RocksDB database, pass it as an
 option the generic Protobuf merge operator and write and read Protobuf
 objects while the merging is happening in the background. The
-following C++ code snippet does just this:
-
+following C++ code snippet does just this ([from test_database.cc] (src/test/cpp/test_database.cc)):
 
 
 ```C++
@@ -65,6 +64,7 @@ following C++ code snippet does just this:
   std::cout << merged.DebugString() << std::endl;
 ```
 
+
 You get the following output:
 
 ```
@@ -78,7 +78,7 @@ text12: "b"
 text12: "c"
 ```
 
-You might prefer Java, in which case your code should look like:
+You might prefer Java, in which case your code should look like ([from RocksDBProtobufTest.java] (src/test/java/org/rocksdbprotobuf/RocksDBProtobufTest.java)):
 
 ```Java
 	Type1.Subtype11 message_submessage = Type1.Subtype11.newBuilder()
