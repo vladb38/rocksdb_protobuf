@@ -112,6 +112,7 @@ You might prefer Java, in which case your code should look like:
 	Type1 new_message = Type1.parseFrom(new String(value);
 	System.out.println(new_message.toString());
 ```
+([from RocksDBProtobufTest.java] (src/test/java/org/rocksdbprotobuf/RocksDBProtobufTest.java))
 
 The result should be the same.
 
@@ -134,7 +135,6 @@ message Type1 {
   optional string text13 = 3;
 }
 ```
-([from RocksDBProtobufTest.java] (src/test/java/org/rocksdbprotobuf/RocksDBProtobufTest.java))
 
 The merge operator constructor is aware of the type of the object to
 be merged. It will fetch the Protobuf descriptor of the object and the
