@@ -6,8 +6,8 @@ LevelDB, developed at Google. Protobuf is a data representation
 developed at Google.
 
 RocksDB offers the possibility of doing appends to existing key values
-efficiently through the use of a merge operator. A merge operator is a
-user-provided callback that knows how to merge the old value ("the
+efficiently through the use of a [merge operator](https://github.com/facebook/rocksdb/wiki/Merge-Operator).
+The operator is a user-provided callback that knows how to merge the old value ("the
 message") and the new value ("the delta") into a single value
 ("the merged value").
 
