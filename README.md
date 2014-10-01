@@ -34,7 +34,7 @@ message Type1 {
 You should be able to create a new RocksDB database, pass it as an
 option the generic Protobuf merge operator and write and read Protobuf
 objects while the merging is happening in the background. The
-following C++ code snippet does just this ([from test_database.cc] (src/test/cpp/test_database.cc)):
+following C++ code snippet does just this:
 
 
 ```C++
@@ -63,7 +63,7 @@ following C++ code snippet does just this ([from test_database.cc] (src/test/cpp
   merged.ParseFromString(value);
   std::cout << merged.DebugString() << std::endl;
 ```
-
+([from test_database.cc] (src/test/cpp/test_database.cc))
 
 You get the following output:
 
@@ -78,7 +78,7 @@ text12: "b"
 text12: "c"
 ```
 
-You might prefer Java, in which case your code should look like ([from RocksDBProtobufTest.java] (src/test/java/org/rocksdbprotobuf/RocksDBProtobufTest.java)):
+You might prefer Java, in which case your code should look like:
 
 ```Java
 	Type1.Subtype11 message_submessage = Type1.Subtype11.newBuilder()
@@ -134,6 +134,7 @@ message Type1 {
   optional string text13 = 3;
 }
 ```
+([from RocksDBProtobufTest.java] (src/test/java/org/rocksdbprotobuf/RocksDBProtobufTest.java))
 
 The merge operator constructor is aware of the type of the object to
 be merged. It will fetch the Protobuf descriptor of the object and the
