@@ -18,7 +18,7 @@ cd rocksdb_protobuf
 ln -s <your RocksDB source folder> .
 ```
 
-## Install preqrequisites
+## Install prerequisites
 
 Install RocksdDB and RocksDB_Protobuf dependencies:
 
