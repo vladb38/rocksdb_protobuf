@@ -9,6 +9,7 @@
 
 #include "merge.pb.h"
 
+thread_local bool ProtobufMergeOperator::thread_data_initialized;
 thread_local google::protobuf::Message *ProtobufMergeOperator::message;
 thread_local google::protobuf::Message *ProtobufMergeOperator::delta;
 
@@ -29,18 +30,13 @@ ProtobufMergeOperator::ProtobufMergeOperator(const std::string &file_descriptor_
      in the protobuf file */
   if (file_descriptor->message_type_count() == 0) {
     logger::info("No top-level message found in the descriptor!");
-    message = new MessageBase();
-    delta = new MessageBase();
     return;
   }
   const google::protobuf::Descriptor *message_descriptor =
     file_descriptor->message_type(0);
   google::protobuf::DynamicMessageFactory *dynamic_message_factory =
     new google::protobuf::DynamicMessageFactory(&descriptor_pool);
-  const google::protobuf::Message *proto_message =
-    dynamic_message_factory->GetPrototype(message_descriptor);
-  message = proto_message->New();
-  delta = proto_message->New();
+  proto_message = dynamic_message_factory->GetPrototype(message_descriptor);
 }
 
 bool ProtobufMergeOperator::Merge(const rocksdb::Slice& key,
@@ -48,6 +44,9 @@ bool ProtobufMergeOperator::Merge(const rocksdb::Slice& key,
                                   const rocksdb::Slice& value,
                                   std::string* new_value,
                                   rocksdb::Logger* logger) const {
+  if (!thread_data_initialized) {
+    InitializeThreadData();
+  }
   // Clear the *new_value for writing.
   assert(new_value);
   new_value->clear();
@@ -61,6 +60,18 @@ bool ProtobufMergeOperator::Merge(const rocksdb::Slice& key,
   Trim(message);
   message->AppendToString(new_value);
   return true;
+}
+
+void ProtobufMergeOperator::InitializeThreadData() const {
+  if (!thread_data_initialized) {
+    if (proto_message) {
+      message = proto_message->New();
+      delta = proto_message->New();
+    } else {
+      message = new MessageBase();
+      delta = new MessageBase();
+    }
+  }
 }
 
 /* Trim a protobuf message according to per-field caps */

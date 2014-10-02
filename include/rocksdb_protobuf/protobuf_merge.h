@@ -25,12 +25,16 @@ public:
 private:
   /* The descriptor pool must outlive all allocate objects */
   google::protobuf::DescriptorPool descriptor_pool;
+  /* Prototype message created by the descriptor pool */
+  const google::protobuf::Message *proto_message;
   /* Message objects used during merge are declared static
      and initialized when loading the protobuf descriptor.
      This is making the assumption that we will only use
      one instance of ProtobufMergeOperator per thread.
      Otherwise we would have to use ThreadLocalPtr from
      "util/thread_local.h" in the RocksDB source code. */
+  void InitializeThreadData() const;
+  static thread_local bool thread_data_initialized;
   static thread_local google::protobuf::Message *message;
   static thread_local google::protobuf::Message *delta;
 };
