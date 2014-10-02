@@ -17,7 +17,7 @@ ProtobufMergeOperator::ProtobufMergeOperator() {
   delta = new MessageBase();
 };
 
-ProtobufMergeOperator::ProtobufMergeOperator(std::string file_descriptor_set_proto) {
+ProtobufMergeOperator::ProtobufMergeOperator(const std::string &file_descriptor_set_proto) {
   google::protobuf::FileDescriptorSet file_descriptor_set;
   file_descriptor_set.ParseFromString(file_descriptor_set_proto);
   const google::protobuf::FileDescriptor *file_descriptor;
@@ -28,7 +28,7 @@ ProtobufMergeOperator::ProtobufMergeOperator(std::string file_descriptor_set_pro
      and create a generic message of the first type described
      in the protobuf file */
   if (file_descriptor->message_type_count() == 0) {
-    info("No top-level message found in the descriptor!");
+    logger::info("No top-level message found in the descriptor!");
     message = new MessageBase();
     delta = new MessageBase();
     return;
@@ -114,6 +114,6 @@ std::shared_ptr<ProtobufMergeOperator> CreateProtobufMergeOperator() {
   return std::make_shared<ProtobufMergeOperator>();
 }
 
-std::shared_ptr<ProtobufMergeOperator> CreateProtobufMergeOperator(std::string file_descriptor_set_proto) {
+std::shared_ptr<ProtobufMergeOperator> CreateProtobufMergeOperator(const std::string &file_descriptor_set_proto) {
   return std::make_shared<ProtobufMergeOperator>(file_descriptor_set_proto);
 }

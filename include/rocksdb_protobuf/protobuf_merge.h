@@ -13,7 +13,7 @@
 class ProtobufMergeOperator : public rocksdb::AssociativeMergeOperator {
 public:
   ProtobufMergeOperator();
-  ProtobufMergeOperator(std::string descriptor);
+  ProtobufMergeOperator(const std::string &descriptor);
   virtual bool Merge(const rocksdb::Slice& key,
                      const rocksdb::Slice* existing_value,
                      const rocksdb::Slice& value,
@@ -36,4 +36,4 @@ private:
 };
 
 std::shared_ptr<ProtobufMergeOperator> CreateProtobufMergeOperator();
-std::shared_ptr<ProtobufMergeOperator> CreateProtobufMergeOperator(std::string file_descriptor_set_proto);
+std::shared_ptr<ProtobufMergeOperator> CreateProtobufMergeOperator(const std::string &file_descriptor_set_proto);

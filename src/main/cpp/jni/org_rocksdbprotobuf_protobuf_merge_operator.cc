@@ -22,9 +22,9 @@
  * Method:    newMergeOperatorHandle
  * Signature: ()J
  */
-jlong Java_org_rocksdbprotobuf_ProtobufMergeOperator_newMergeOperatorHandleImpl(JNIEnv* env, jobject jobj, jbyteArray file_descriptor_set_bytes) {
+jlong Java_org_rocksdbprotobuf_ProtobufMergeOperator_newMergeOperatorHandleImpl(JNIEnv *env, jobject jobj, jbyteArray file_descriptor_set_bytes) {
   std::shared_ptr<rocksdb::MergeOperator> *op = new std::shared_ptr<rocksdb::MergeOperator>();
-  const jbyte* buffer = env->GetByteArrayElements(file_descriptor_set_bytes, NULL);
+  const jbyte *buffer = env->GetByteArrayElements(file_descriptor_set_bytes, nullptr);
   jsize length = env->GetArrayLength(file_descriptor_set_bytes);
   std::string file_descriptor_set_string((const char*) buffer, (size_t) length);
   *op = CreateProtobufMergeOperator(file_descriptor_set_string);
