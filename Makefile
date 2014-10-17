@@ -62,7 +62,7 @@ endif
 LIBRARY = ${LIBNAME}.so
 JNILIBRARY = ${LIBNAME}jni.so
 
-LDFLAGS = -lpthread -lrocksdb -lprotobuf -lrt -lsnappy -lgflags -lz -lbz2
+LDFLAGS = -Lrocksdb -lpthread -lrocksdb -lprotobuf -lrt -lsnappy -lgflags -lz -lbz2
 
 all: library
 
@@ -78,19 +78,20 @@ $(LIBRARY): $(LIBOBJECTS)
 	$(CXX) -shared -fPIC -o $@ $(LIBOBJECTS) $(LDFLAGS)
 
 clean:
-	-rm test proto/*.pb.*
+	-rm test_database test_operator proto/*.pb.*
 	find . -name "*~" -delete
 	find . -name "*.o" -delete
+	find . -name "*.so" -delete
 	find . -name "*.class" -delete
 	-rm *.a *.jar
 
 test_operator: $(TEST_OPERATOR_OBJECTS) library
 	$(CXX) $(CXXFLAGS) -o test_operator $(TEST_OPERATOR_OBJECTS) $(LIBRARY) $(LDFLAGS)
-	LD_LIBRARY_PATH=. ./test_operator
+	LD_LIBRARY_PATH=.:rocksdb ./test_operator
 
 test_database: $(TEST_DATABASE_OBJECTS) library
 	$(CXX) $(CXXFLAGS) -o test_database $(TEST_DATABASE_OBJECTS) $(LIBRARY) $(LDFLAGS)
-	LD_LIBRARY_PATH=. ./test_database
+	LD_LIBRARY_PATH=.:rocksdb ./test_database
 
 test: test_operator test_database
 
