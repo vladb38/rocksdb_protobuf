@@ -51,6 +51,7 @@ public class RocksDBProtobufTest extends TestCase {
     Options opt = new Options();
     ProtobufMergeOperator protobufMergeOperator = new ProtobufMergeOperator(Type1.class);
     opt.setMergeOperator(protobufMergeOperator);
+    opt.setCreateIfMissing(true);
 
     RocksDB db = RocksDB.open(opt, db_path_string);
 

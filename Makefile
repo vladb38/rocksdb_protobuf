@@ -99,7 +99,7 @@ $(JNILIBRARY): $(JNILIBOBJECTS)
 	mvn	compile
 	javah -classpath target/classes -d ./include/rocksdb_protobuf -jni $(NATIVE_JAVA_CLASSES)
 	rm -f $@
-	$(CXX) -shared -fPIC -o $@ $(ROCKSDB_BASE)/java/librocksdbjni.so $(JNILIBOBJECTS) $(LDFLAGS)
+	$(CXX) -shared -fPIC -o $@ $(ROCKSDB_BASE)/java/librocksdbjni-linux64.so $(JNILIBOBJECTS) $(LDFLAGS)
 
 library-java: $(JNILIBRARY)
 

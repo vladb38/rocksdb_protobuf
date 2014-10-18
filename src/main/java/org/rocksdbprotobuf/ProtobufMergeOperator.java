@@ -18,7 +18,7 @@ import java.util.List;
  * two values held under the same key in order to obtain a single
  * value.
  */
-public class ProtobufMergeOperator extends MergeOperator {
+public class ProtobufMergeOperator implements MergeOperator {
 
 	byte[] fileDescriptorSetBytes;
 
@@ -56,7 +56,7 @@ public class ProtobufMergeOperator extends MergeOperator {
 		}
 	}
 
-	@Override protected long newMergeOperatorHandle() {
+    @Override public long newMergeOperatorHandle() {
 		return newMergeOperatorHandleImpl(fileDescriptorSetBytes);
 	}
 

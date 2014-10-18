@@ -38,21 +38,38 @@
         <configuration>
           <forkMode>once</forkMode>
           <workingDirectory>target</workingDirectory>
-          <argLine>-Djava.library.path=${basedir}/rocksdb/java:${basedir}/rocksdb:${basedir}</argLine>
+          <environmentVariables>
+            <LD_LIBRARY_PATH>${basedir}/target/classes</LD_LIBRARY_PATH>
+          </environmentVariables>
+          <argLine>-Djava.library.path=${basedir}/target/classes</argLine>
         </configuration>
       </plugin>
     </plugins>
     <resources>
-    <resource>
-      <directory>rocksdb/java</directory>
-    </resource>
-    <resource>
-      <filtering>false</filtering>
-      <directory>${basedir}</directory>
-      <includes>
-        <include>librocksdbprotobuf.so</include>
-      </includes>
-    </resource>
+      <resource>
+        <directory>rocksdb/java</directory>
+      </resource>
+      <resource>
+        <filtering>false</filtering>
+        <directory>${basedir}</directory>
+        <includes>
+          <include>librocksdbprotobuf.so</include>
+        </includes>
+      </resource>
+      <resource>
+        <filtering>false</filtering>
+        <directory>${basedir}/rocksdb</directory>
+        <includes>
+          <include>librocksdb.so</include>
+        </includes>
+      </resource>
+      <resource>
+        <filtering>false</filtering>
+        <directory>${basedir}</directory>
+        <includes>
+          <include>librocksdbprotobufjni.so</include>
+        </includes>
+      </resource>
     </resources>
-</build>
+  </build>
 </project>
