@@ -44,7 +44,7 @@ PLATFORM_CXXFLAGS =
 
 WARNING_FLAGS = -Wall -Werror -Wsign-compare
 CFLAGS += $(WARNING_FLAGS) -I. $(INCLUDE) $(PLATFORM_CCFLAGS) $(OPT) -fPIC
-CXXFLAGS += $(WARNING_FLAGS) -I. $(INCLUDE) $(PLATFORM_CXXFLAGS) $(OPT) -Woverloaded-virtual -fPIC
+CXXFLAGS += $(WARNING_FLAGS) -I. $(INCLUDE) $(PLATFORM_CXXFLAGS) $(OPT) -Woverloaded-virtual -fPIC -static-libstdc++ -static-libgcc
 
 LIBOBJECTS = $(SOURCES:.cc=.o)
 
@@ -75,7 +75,7 @@ library: ${LIBRARY}
 
 $(LIBRARY): $(LIBOBJECTS)
 	rm -f $@
-	$(CXX) -shared -fPIC -o $@ $(LIBOBJECTS) $(LDFLAGS)
+	$(CXX) -shared -fPIC -static-libstdc++ -static-libgcc -o $@ $(LIBOBJECTS) $(LDFLAGS)
 
 clean:
 	-rm test_database test_operator proto/*.pb.*
@@ -99,7 +99,7 @@ $(JNILIBRARY): $(JNILIBOBJECTS)
 	mvn	compile
 	javah -classpath target/classes -d ./include/rocksdb_protobuf -jni $(NATIVE_JAVA_CLASSES)
 	rm -f $@
-	$(CXX) -shared -fPIC -o $@ $(ROCKSDB_BASE)/java/librocksdbjni-linux64.so $(JNILIBOBJECTS) $(LDFLAGS)
+	$(CXX) -shared -fPIC -static-libstdc++ -static-libgcc -o $@ $(ROCKSDB_BASE)/java/librocksdbjni-linux64.so $(JNILIBOBJECTS) $(LDFLAGS)
 
 library-java: $(JNILIBRARY)
 

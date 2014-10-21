@@ -28,9 +28,17 @@ sudo apt-get install libprotobuf-dev libsnappy-dev zlib1g-dev libbz2-dev libgfla
 ```
    You might need to upgrade gcc to get C++ 11 support!
 
+## Compile RocksDB as static
+
+* Go to the RocksDB source folder do
+```
+make rocksdbjavastaticrelease
+``
+
 ## Compile
 
-* This will create the library:
+* Go to the RocksDB_Protobuf source folder.
+* This will compile the library:
 ```
 make protogen
 make library

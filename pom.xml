@@ -70,6 +70,20 @@
           <include>librocksdbprotobufjni.so</include>
         </includes>
       </resource>
+      <resource>
+        <filtering>false</filtering>
+        <directory>${basedir}/rocksdb</directory>
+        <includes>
+          <include>librocksdb.a</include>
+        </includes>
+      </resource>
+      <resource>
+        <filtering>false</filtering>
+        <directory>/usr/lib</directory>
+        <includes>
+          <include>libprotobuf.so.9</include>
+        </includes>
+      </resource>
     </resources>
   </build>
 </project>
