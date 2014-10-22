@@ -24,16 +24,22 @@ Install RocksdDB and RocksDB_Protobuf dependencies:
 
 * **Ubuntu 14.04**
 ```
-sudo apt-get install libprotobuf-dev libsnappy-dev zlib1g-dev libbz2-dev libgflags-dev
+sudo apt-get install protobuf-compiler libprotobuf-dev libsnappy-dev zlib1g-dev libbz2-dev libgflags-dev
 ```
    You might need to upgrade gcc to get C++ 11 support!
 
 ## Compile RocksDB as static
 
+* If your runtime machines do not have a new enough version of the C++ standard library, you can link it statically.
+```
+export CXXFLAGS="-static-libstdc++ -static-libgcc -fPIC"
+```
+
 * Go to the RocksDB source folder do
 ```
-make rocksdbjavastaticrelease
-``
+make static_lib
+make rocksdbjavastatic
+```
 
 ## Compile
 
