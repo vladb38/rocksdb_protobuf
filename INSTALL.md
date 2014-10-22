@@ -31,8 +31,8 @@ sudo apt-get install protobuf-compiler libprotobuf-dev libsnappy-dev zlib1g-dev 
 GCC 4.9 in Ubuntu 14.04:
 ```
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-apt-get update -y
-apt-get install -y g++-4.9
+sudo apt-get update -y
+sudo apt-get install -y g++-4.9
 ```
 To use g++4.9 by default:
 ```
