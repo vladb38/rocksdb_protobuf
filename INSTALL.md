@@ -34,9 +34,9 @@ sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 sudo apt-get update -y
 sudo apt-get install -y g++-4.9
 ```
-To use g++4.9 by default:
+To use g++-4.9 by default:
 ```
-export CXX=g++4.9
+export CXX=g++-4.9
 ```
 
 ## Compile RocksDB as static
