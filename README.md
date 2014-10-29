@@ -155,3 +155,40 @@ text112: "c"
 text12: "b"
 text12: "c"
 ```
+
+In other cases you want a counter field to sum up the values
+present in the two operands. For this purpose we introduced
+the MERGE_SUMMABLE extension:
+```
+// This is where the merge extensions are defined
+import "merge.proto";
+
+message Type1 {
+  message Subtype11 {
+    int32 int113 = 3 [(merge_type) = MERGE_SUMMABLE];
+  }
+}
+```
+
+The merge operator will in this case search for scalar fields in
+the two messages that have the extension set and sum them before
+executing the merge. The following code example shows how two
+counter fields are added up during the merge:
+
+```C++
+	/* Create protobuf messages */
+	Type1 message;
+	Type1 delta;
+	Type1 merged;
+
+  message.mutable_subtype11()->set_int113(2);
+  delta.mutable_subtype11()->set_int113(1);
+```
+([from test_operator.cc] (src/test/cpp/test_operator.cc))
+
+In this case, the merged object will be
+```
+subtype11 {
+int113: 3
+}
+```

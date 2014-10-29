@@ -20,6 +20,8 @@ public:
                      std::string* new_value,
                      rocksdb::Logger* logger) const override;
   virtual const char* Name() const override;
+  void Sum(google::protobuf::Message *message,
+           google::protobuf::Message *new_message) const;
   void Trim(google::protobuf::Message *message) const;
 
 private:

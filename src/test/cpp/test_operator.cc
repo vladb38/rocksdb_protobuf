@@ -39,7 +39,7 @@ T merge(std::shared_ptr<ProtobufMergeOperator> merge_operator,
 
 /* test a merge operator and verify that the returned list
    has the expected number of elements */
-void test_operator(std::shared_ptr<ProtobufMergeOperator> merge_operator,
+void test_mergecap_operator(std::shared_ptr<ProtobufMergeOperator> merge_operator,
                    int expected_count) {
   Type1 message;
   Type1 delta;
@@ -67,10 +67,37 @@ void test_operator(std::shared_ptr<ProtobufMergeOperator> merge_operator,
   std::cout << merged.DebugString() << std::endl;
 }
 
+/* test a merge operator and verify that the returned sum
+   has the expected value*/
+void test_mergesum_operator(std::shared_ptr<ProtobufMergeOperator> merge_operator,
+                            int expected_sum, bool second_operand) {
+  Type1 message;
+  Type1 delta;
+  Type1 merged;
+
+  message.mutable_subtype11()->set_int113(2);
+  if (second_operand) {
+    delta.mutable_subtype11()->set_int113(1);
+  }
+
+  std::cout << "message:" << std::endl;
+  std::cout << message.DebugString() << std::endl;
+  std::cout << "delta:" << std::endl;
+  std::cout << delta.DebugString() << std::endl;
+
+  merged = merge<Type1>(merge_operator,
+                              message,
+                              delta);
+  assert(merged.subtype11().int113() == expected_sum);
+
+  std::cout << "result:" << std::endl;
+  std::cout << merged.DebugString() << std::endl;
+}
+
 /* test a merge without loading the protobuf descriptor */
 void test_simple_merge() {
   std::cout << "testing a merge without passing the descriptor" << std::endl;
-  test_operator(CreateProtobufMergeOperator(), 3);
+  test_mergecap_operator(CreateProtobufMergeOperator(), 3);
 }
 
 /* test a MERGE_CAPPED_LIST-based merge
@@ -79,12 +106,24 @@ void test_simple_merge() {
    will fall through */
 void test_mergecap_merge() {
   std::cout << "testing a MERGE_CAPPED_LIST merge with cap 2" << std::endl;
-  test_operator(get_operator<Type1>(), 2);
+  test_mergecap_operator(get_operator<Type1>(), 2);
+}
+
+void test_mergesum_merge() {
+ std::cout << "testing a MERGE_SUMMABLE merge" << std::endl;
+ test_mergesum_operator(get_operator<Type1>(), 3, true);
+}
+
+void test_mergesum2_merge() {
+ std::cout << "testing a MERGE_SUMMABLE merge without a second operand" << std::endl;
+ test_mergesum_operator(get_operator<Type1>(), 2, false);
 }
 
 int main() {
   test_simple_merge();
   test_mergecap_merge();
+  test_mergesum_merge();
+  test_mergesum2_merge();
 
   return 0;
 }

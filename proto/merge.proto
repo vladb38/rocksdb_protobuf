@@ -17,6 +17,7 @@ message MergeMessage {
   enum MergeType {
     MERGE_LIST = 0;
     MERGE_CAPPED_LIST = 1;
+    MERGE_SUMMABLE = 2;
   }
 }
 
