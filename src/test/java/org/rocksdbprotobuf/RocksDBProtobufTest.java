@@ -57,7 +57,7 @@ public class RocksDBProtobufTest extends TestCase {
 
     System.out.println("Writing message...");
 	System.out.println(message.toString());
-    db.put("key".getBytes(), message.toByteArray());
+    db.merge("key".getBytes(), message.toByteArray());
 
     System.out.println("Writing delta...");
 	System.out.println(delta.toString());

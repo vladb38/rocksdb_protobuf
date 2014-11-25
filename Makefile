@@ -24,9 +24,9 @@ JNI_SOURCES = src/main/cpp/jni/org_rocksdbprotobuf_protobuf_merge_operator.cc
 TEST_OPERATOR_SOURCES = src/test/cpp/test_operator.cc
 TEST_DATABASE_SOURCES = src/test/cpp/test_database.cc
 
-INCLUDE = -I $(ROCKSDB_BASE) -I$(ROCKSDB_BASE)/include -I$(PROTOBUF_BASE)/include \
+INCLUDE = -I$(ROCKSDB_BASE) -I$(ROCKSDB_BASE)/include -I$(PROTOBUF_BASE)/include \
 	-I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux -I./include \
-	-I $(ROCKSDB_BASE)/java  -I./proto
+	-I$(ROCKSDB_BASE)/java  -I./proto
 
 OPT = -std=c++11 -pthread
 
