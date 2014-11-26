@@ -62,7 +62,7 @@ endif
 LIBRARY = ${LIBNAME}.so
 JNILIBRARY = ${LIBNAME}jni.so
 
-LDFLAGS = -Lrocksdb -lpthread -lrocksdb -lprotobuf -lrt -lsnappy -lgflags -lz -lbz2
+LDFLAGS = -Lrocksdb -lpthread -lrocksdb -lprotobuf -lrt -lsnappy -lz -lbz2 #-lgflags
 
 all: library
 

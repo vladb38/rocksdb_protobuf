@@ -7,6 +7,7 @@
 
 #include <vector>
 
+#include <google/protobuf/descriptor.h>
 #include <google/protobuf/dynamic_message.h>
 #include "message_base.pb.h"
 
