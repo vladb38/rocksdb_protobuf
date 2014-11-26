@@ -62,7 +62,7 @@ endif
 LIBRARY = ${LIBNAME}.so
 JNILIBRARY = ${LIBNAME}jni.so
 
-LDFLAGS = -Lrocksdb -lpthread -lrocksdb -lprotobuf -lrt -lsnappy -lz -lbz2 #-lgflags
+LDFLAGS = -Lrocksdb -lpthread -lrocksdb -Wl,-static -lprotobuf -Wl,-Bdynamic #-lrt -lsnappy -lz -lbz2 -lgflags
 
 all: library
 
@@ -99,7 +99,7 @@ $(JNILIBRARY): $(JNILIBOBJECTS)
 	mvn	compile
 	javah -classpath target/classes -d ./include/rocksdb_protobuf -jni $(NATIVE_JAVA_CLASSES)
 	rm -f $@
-	$(CXX) -shared -fPIC -static-libstdc++ -static-libgcc -o $@ $(ROCKSDB_BASE)/java/librocksdbjni-linux64.so $(JNILIBOBJECTS) $(LDFLAGS)
+	$(CXX) -shared -fPIC -static-libstdc++ -static-libgcc -o $@ -L$(ROCKSDB_BASE)/java/ -lrocksdbjni-linux64 $(JNILIBOBJECTS) $(LDFLAGS)
 
 library-java: $(JNILIBRARY)
 
