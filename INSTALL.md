@@ -63,12 +63,10 @@ sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 sudo apt-get update -y
 sudo apt-get install -y g++-4.9
 ```
-   To use g++-4.9 by default:
+  To use g++-4.9 by default:
 ```
 export CXX=g++-4.9
 ```
-
-Compile RocksDB with static flags
 
 If your runtime machines do not have a new enough version of the C++ standard library then it can be linked statically.
 The correct switches can be set in CXXFLAGS, and both the RocksDB and RocksDB_protobuf Makefiles will use them. RocksDB also
@@ -77,14 +75,13 @@ needs to be built with these flags.
 export CXXFLAGS="-static-libstdc++ -static-libgcc -fPIC"
 ```
 
-   Go to the RocksDB source folder and run:
+Go to the RocksDB source folder and run:
 ```
 make static_lib
 make rocksdbjavastatic
 ```
 
-* Compile RocksDB_Protobuf
-   Go to the RocksDB_Protobuf source folder and run:
+Now we can compile RocksDB_Protobuf. Go to the RocksDB_Protobuf source folder and run:
 ```
 make protogen
 make library
