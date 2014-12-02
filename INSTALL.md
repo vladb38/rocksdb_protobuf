@@ -6,8 +6,8 @@ process. To avoid having too many system specific dependencies, the
 best way to compile is to link statically many libraries as
 possible. This prevents deployment issues, however it is not a
 perfect solution. Since libc will remain outside the compiled library,
-to prevent issues when starting the container you should compile on
-the same operating system version on which you want to run your
+to prevent libc versioning issues when loading the libraries, you should 
+compile on the same operating system version on which you want to run your
 database.
 
 To ease the compilation process we have prepared a Dockerfile for
