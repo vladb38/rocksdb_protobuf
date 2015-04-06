@@ -47,7 +47,17 @@
     </plugins>
     <resources>
       <resource>
+        <directory>rocksdb/java/target/classes</directory>
+      </resource>
+      <resource>
         <directory>rocksdb/java</directory>
+      </resource>
+      <resource>
+        <filtering>false</filtering>
+        <directory>${basedir}/rocksdb/java/target</directory>
+        <includes>
+          <include>librocksdbjni-linux64.so</include>
+        </includes>
       </resource>
       <resource>
         <filtering>false</filtering>
